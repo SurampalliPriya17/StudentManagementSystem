@@ -136,7 +136,7 @@
 						<phase>test-compile</phase>
 						<goals>
 							<goal>testCompile</goal>
-						</goals>
+						</goals> 
 						<configuration>
 							<annotationProcessorPaths>
 								<path>
