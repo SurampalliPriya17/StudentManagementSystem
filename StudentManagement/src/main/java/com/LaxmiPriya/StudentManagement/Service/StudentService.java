@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.LaxmiPriya.StudentManagement.Dto.CreateRequestDto;
 import com.LaxmiPriya.StudentManagement.Dto.ResponseDto;
+import com.LaxmiPriya.StudentManagement.Dto.UpdateRequestDto;
 import com.LaxmiPriya.StudentManagement.Dto.UpdateResponseDto;
 import com.LaxmiPriya.StudentManagement.Entity.Course;
 import com.LaxmiPriya.StudentManagement.Entity.Student;
@@ -76,13 +77,13 @@ public class StudentService {
 		return studentRepo.findAll();
 	}
 
-	public UpdateResponseDto updateStudent(Long id, @RequestBody CreateRequestDto createRequest)
+	public UpdateResponseDto updateStudent(Long id, @RequestBody UpdateRequestDto createRequest)
 			throws StudentNotFoundException, CourseNotFoundException {
 
 		Student student = getStudent(id);
 		Course course = courseRepo.findByCourseName(createRequest.getCourseName())
 				.orElseThrow(() -> new CourseNotFoundException("Course not found"));
-
+        student.setId(createRequest.getId());
 		student.setName(createRequest.getName());
 		student.setCourse(course);
 		student.setDOB(createRequest.getDOB());

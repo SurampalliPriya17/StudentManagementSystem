@@ -1,0 +1,40 @@
+<body>
+
+	<div
+		style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+		<form th:object="${student}"
+			th:action="${isUpdate} ?
+                 @{/saveStudent/{id}(id=*{id})} :
+                 @{/saveStudent}"
+			method="post">
+
+
+
+			Name: <input type="text" th:field="*{name}"> <br>
+			<br> Email: <input type="email" th:field="*{email}"> <br>
+			<br> DOB: <input type="date" th:field="*{DOB}"> <br>
+			<br> Course Name: <select th:field="*{courseName}">
+				<option value="Java">Java</option>
+				<option value="Python">Python</option>
+				<option value="Data Science">Data Science</option>
+				<option value="AI & Machine Learning">AI & Machine Learning</option>
+			</select> 
+			<br>
+			<br> 
+			<a th:href="@{/students}">
+				<button type="button"
+					style="background-color: green; color: white; padding: 8px 15px; border: none; border-radius: 5px;  margin-right: 70px;">
+					Back</button>
+			</a>
+
+
+
+			<button
+				style="background-color: green; color: white; padding: 8px 15px; border: none; border-radius: 5px;">
+				Submit</button>
+
+
+		</form>
+
+	</div>
+</body>

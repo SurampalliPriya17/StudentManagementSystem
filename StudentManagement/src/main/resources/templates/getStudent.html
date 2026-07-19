@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+
+	<h1>Student Details</h1>
+
+	<p>
+		ID: <span th:text="${student.id}"></span>
+	</p>
+
+	<p>
+		Name: <span th:text="${student.name}"></span>
+	</p>
+
+	<p>
+		Email: <span th:text="${student.email}"></span>
+	</p>
+	
+	<p>
+		DOB: <span th:text="${student.DOB}"></span>
+	</p>
+
+	<p>
+		Course Name: <span th:text="${student.course.courseName}"></span>
+	</p>
+	<p>
+		Duration: <span th:text="${student.course.duration}"></span>
+	<p>
+		Fee: <span th:text="${student.course.fee}"></span>
+</body>
+</html>

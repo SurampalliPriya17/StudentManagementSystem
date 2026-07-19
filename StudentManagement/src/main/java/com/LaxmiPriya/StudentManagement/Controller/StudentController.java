@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.LaxmiPriya.StudentManagement.Dto.CreateRequestDto;
 
 import com.LaxmiPriya.StudentManagement.Dto.ResponseDto;
+import com.LaxmiPriya.StudentManagement.Dto.UpdateRequestDto;
 import com.LaxmiPriya.StudentManagement.Dto.UpdateResponseDto;
 import com.LaxmiPriya.StudentManagement.Entity.Student;
 import com.LaxmiPriya.StudentManagement.Exceptions.CourseNotFoundException;
@@ -56,7 +57,7 @@ public class StudentController {
 
 	@PutMapping("/UpdateStudent/{id}")
 	public ResponseEntity<UpdateResponseDto> updateStudent(@PathVariable Long id,
-			@Valid @RequestBody CreateRequestDto createRequest) throws StudentNotFoundException, CourseNotFoundException {
+			@Valid @RequestBody UpdateRequestDto createRequest) throws StudentNotFoundException, CourseNotFoundException {
 		return ResponseEntity.ok(studentService.updateStudent(id, createRequest));
 	}
 

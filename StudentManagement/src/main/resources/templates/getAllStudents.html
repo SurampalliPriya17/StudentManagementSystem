@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>home</title>
+</head>
+
+<body>
+
+	<h1>Students List</h1>
+
+	<a th:href="@{/addStudent}">
+		<button
+			style="background-color: blue; color: white; padding: 8px 15px; border: none; border-radius: 5px;">
+			Insert</button>
+	</a>
+
+	<table border="1">
+
+		<tr>
+			<th>ID</th>
+			<th>Name</th>
+			<th>Email</th>
+			<th>Course</th>
+			<th>Duration</th>
+			<th>Fee</th>
+			<th>DOB</th>
+			<th>Action</th>
+
+		</tr>
+
+		<tr th:each="student : ${students}">
+
+			<td th:text="${student.id}"></td>
+
+			<td th:text="${student.name}"></td>
+
+			<td th:text="${student.email}"></td>
+
+			<td th:text="${student.course.courseName}"></td>
+
+			<td th:text="${student.course.duration}"></td>
+
+			<td th:text="${student.course.fee}"></td>
+
+			<td th:text="${student.DOB}"></td>
+
+			<td><a th:href="@{/updateStudent/{id}(id=${student.id})}">
+					<button
+						style="background-color: green; color: white; padding: 8px 15px; border: none; border-radius: 5px;  margin-right: 10px;">
+						Edit</button>
+			</a> <a th:href="@{/deleteStudent/{id}(id=${student.id})}">
+					<button
+						style="background-color: green; color: white; padding: 8px 15px; border: none; border-radius: 5px;">
+						Delete</button>
+
+			</a></td>
+		</tr>
+
+	</table>
+
+</body>
+</html>

@@ -2,6 +2,7 @@ package com.LaxmiPriya.StudentManagement.Service;
 
 import org.jspecify.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.LaxmiPriya.StudentManagement.Dto.LoginRequestDto;
@@ -19,16 +20,22 @@ import com.LaxmiPriya.StudentManagement.Repo.UserRepo;
 public class AuthService {
 
 	@Autowired
-	UserRepo userRepo;
+	private PasswordEncoder passwordEncoder;
 
-	public String register(RegisterRequestDto registerRequestDto)  {
+	@Autowired
+	private UserRepo userRepo;
+
+	
+
+	public String register(RegisterRequestDto registerRequestDto) {
 
 		userRepo.findByEmail(registerRequestDto.getEmail()).ifPresent(user -> {
 			throw new EmailAlreadyExistsException("Email is already existing!");
 		});
 
 		User user = User.builder().userName(registerRequestDto.getUserName()).email(registerRequestDto.getEmail())
-				.password(registerRequestDto.getPassword()).role(registerRequestDto.getRole()).build();
+				.password(passwordEncoder.encode(registerRequestDto.getPassword())).role(registerRequestDto.getRole())
+				.build();
 
 		userRepo.save(user);
 
@@ -36,16 +43,17 @@ public class AuthService {
 	}
 
 	public String login(LoginRequestDto loginRequestDto) throws UserNotFoundException {
-		
-	User user =	userRepo.findByEmail(loginRequestDto.getEmail()).orElseThrow(()-> new UserNotFoundException("User not found!"));
-	if(!user.getPassword().equals(user.getPassword())) {
-		throw new RuntimeException("Invalid Password");
-	}
-	return "Login Successfull!";
-		
-		
-		
-		
+
+		User user = userRepo.findByEmail(loginRequestDto.getEmail())
+				.orElseThrow(() -> new UserNotFoundException("User not found!"));
+
+		boolean isValid = passwordEncoder.matches(loginRequestDto.getPassword(), user.getPassword());
+
+		if (!isValid) {
+			throw new RuntimeException("Invalid Password");
+		}
+		return "login is successful!";
+
 	}
 
 }
